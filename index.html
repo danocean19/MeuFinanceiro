@@ -1,0 +1,626 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meu Financeiro App</title>
+  <meta
+    name="description"
+    content="Aplicativo de organização financeira com cadastro, perfil, rendas, gastos, filtros, relatórios e dicas diárias."
+  >
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-bg">
+    <span class="glass-orb orb-a"></span>
+    <span class="glass-orb orb-b"></span>
+    <span class="glass-orb orb-c"></span>
+  </div>
+
+  <main class="experience">
+    <section class="auth-shell" id="auth-shell">
+      <div class="glass-panel auth-copy">
+        <div>
+          <p class="eyebrow">Meu Financeiro</p>
+          <h1>Controle financeiro com fluidez, clareza e ritmo profissional.</h1>
+          <p class="supporting">
+            Organize contas, acompanhe renda fixa e variável, filtre gastos, acompanhe relatórios,
+            receba dicas diárias e mantenha um perfil completo com visual moderno em liquid glass.
+          </p>
+        </div>
+
+        <div class="preview-stack">
+          <article class="glass-tile highlight-tile">
+            <span class="preview-label">Visão geral</span>
+            <strong>Saldo disponível</strong>
+            <b id="auth-preview-balance">R$ 18.320,00</b>
+            <div class="sparkline" aria-hidden="true">
+              <span style="--height: 44%"></span>
+              <span style="--height: 58%"></span>
+              <span style="--height: 36%"></span>
+              <span style="--height: 72%"></span>
+              <span style="--height: 80%"></span>
+              <span style="--height: 61%"></span>
+              <span style="--height: 88%"></span>
+            </div>
+          </article>
+
+          <article class="glass-tile">
+            <span class="preview-label">Recursos</span>
+            <ul class="preview-list">
+              <li>Cadastro e login com persistência local</li>
+              <li>Perfil com telefone, foto, link social e compartilhamento</li>
+              <li>Rendas e gastos com filtros e edição</li>
+              <li>Gráficos, insights, resumo semanal e mensal</li>
+              <li>Dica diária com geração de imagem estilizada</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+
+      <div class="glass-panel auth-forms">
+        <div class="auth-switch">
+          <button class="switch-tab is-active" type="button" data-auth-view="login">Entrar</button>
+          <button class="switch-tab" type="button" data-auth-view="register">Criar conta</button>
+        </div>
+
+        <form class="auth-form" id="login-form">
+          <div class="section-title">
+            <h2>Login</h2>
+            <p>Entre com seu e-mail cadastrado para abrir o painel.</p>
+            <p>Demo: <code>demo@meufinanceiro.app</code> / <code>123456</code></p>
+          </div>
+
+          <label>
+            E-mail
+            <input type="email" name="email" placeholder="voce@exemplo.com" required>
+          </label>
+          <label>
+            Senha
+            <input type="password" name="password" placeholder="Digite sua senha" required>
+          </label>
+          <button class="button button-primary" type="submit">Entrar no app</button>
+          <p class="form-feedback" id="login-feedback" aria-live="polite"></p>
+        </form>
+
+        <form class="auth-form is-hidden" id="register-form">
+          <div class="section-title">
+            <h2>Cadastro completo</h2>
+            <p>Crie a conta e defina o perfil inicial com dados de contato.</p>
+          </div>
+
+          <div class="grid-two">
+            <label>
+              Nome completo
+              <input type="text" name="name" placeholder="Seu nome" required>
+            </label>
+            <label>
+              E-mail
+              <input type="email" name="email" placeholder="voce@exemplo.com" required>
+            </label>
+          </div>
+
+          <div class="grid-two">
+            <label>
+              Senha
+              <input type="password" name="password" placeholder="Crie uma senha" required>
+            </label>
+            <label>
+              Renda principal
+              <input type="number" name="income" min="0" step="0.01" placeholder="4500" required>
+            </label>
+          </div>
+
+          <div class="grid-two">
+            <label>
+              Telefone
+              <input type="tel" name="phone" placeholder="(11) 99999-9999">
+            </label>
+            <label>
+              Link social
+              <input type="url" name="socialLink" placeholder="https://instagram.com/seuperfil">
+            </label>
+          </div>
+
+          <label>
+            Foto de perfil
+            <input type="file" name="avatar" accept="image/*">
+          </label>
+
+          <button class="button button-primary" type="submit">Criar conta e acessar</button>
+          <p class="form-feedback" id="register-feedback" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <section class="dashboard is-hidden" id="dashboard">
+      <aside class="glass-panel sidebar">
+        <div class="brand-block">
+          <p class="eyebrow">Meu Financeiro</p>
+          <h2>Finance Hub</h2>
+        </div>
+
+        <nav class="nav-stack">
+          <button class="nav-item is-active" data-screen="home" type="button">Home</button>
+          <button class="nav-item" data-screen="accounts" type="button">Contas</button>
+          <button class="nav-item" data-screen="income" type="button">Rendas</button>
+          <button class="nav-item" data-screen="expenses" type="button">Gastos</button>
+          <button class="nav-item" data-screen="reports" type="button">Relatórios</button>
+          <button class="nav-item" data-screen="profile" type="button">Perfil</button>
+        </nav>
+
+        <div class="glass-tile sidebar-card">
+          <span class="mini-label">Dica do dia</span>
+          <p id="sidebar-tip">Seu dinheiro precisa de intenção antes de velocidade.</p>
+          <button class="button button-secondary compact" id="tip-download-sidebar" type="button">Baixar dica</button>
+        </div>
+
+        <button class="button button-secondary" id="logout-button" type="button">Sair</button>
+      </aside>
+
+      <div class="main-panel">
+        <header class="glass-panel topbar">
+          <div>
+            <p class="eyebrow">Painel financeiro</p>
+            <h1 id="screen-title">Home</h1>
+          </div>
+
+          <div class="topbar-profile">
+            <button class="button button-secondary compact theme-toggle" id="theme-toggle" type="button">Modo noturno</button>
+            <div class="topbar-copy">
+              <strong id="topbar-name">Usuário</strong>
+              <span id="topbar-income">Renda base</span>
+            </div>
+            <img id="topbar-avatar" alt="Foto de perfil" src="">
+          </div>
+        </header>
+
+        <section class="screen is-active" id="screen-home">
+          <div class="hero-grid">
+            <article class="glass-card metric-card accent-card">
+              <span class="mini-label">Saldo atual</span>
+              <strong id="home-balance">R$ 0,00</strong>
+              <p id="home-balance-note">Acompanhe o quanto sobra depois dos gastos.</p>
+            </article>
+            <article class="glass-card metric-card">
+              <span class="mini-label">Receitas do mês</span>
+              <strong id="home-income-total">R$ 0,00</strong>
+              <p>Inclui renda fixa, renda variável e extras.</p>
+            </article>
+            <article class="glass-card metric-card">
+              <span class="mini-label">Gastos do mês</span>
+              <strong id="home-expense-total">R$ 0,00</strong>
+              <p>Monitore despesas e ajuste excessos rapidamente.</p>
+            </article>
+            <article class="glass-card metric-card">
+              <span class="mini-label">Resumo semanal</span>
+              <strong id="home-weekly">R$ 0,00</strong>
+              <p id="home-weekly-note">Últimos 7 dias.</p>
+            </article>
+          </div>
+
+          <div class="dashboard-grid home-grid">
+            <article class="glass-card panel-card wide">
+              <div class="panel-head">
+                <div>
+                  <span class="mini-label">Panorama mensal</span>
+                  <h3>Fluxo de caixa do período</h3>
+                </div>
+                <span class="panel-badge">Atualizado em tempo real</span>
+              </div>
+              <div class="chart monthly-chart" id="monthly-chart"></div>
+            </article>
+
+            <article class="glass-card panel-card tip-feature-card">
+              <div class="panel-head">
+                <div>
+                  <span class="mini-label">Dica inspiradora</span>
+                  <h3>Dica diária</h3>
+                </div>
+              </div>
+              <p class="tip-text" id="daily-tip-text"></p>
+              <div class="tip-actions">
+                <button class="button button-secondary compact" id="tip-refresh" type="button">Nova dica</button>
+                <button class="button button-primary compact" id="tip-download" type="button">Baixar imagem</button>
+              </div>
+            </article>
+
+            <article class="glass-card panel-card">
+              <div class="panel-head">
+                <div>
+                  <span class="mini-label">Categorias</span>
+                  <h3>Gastos por filtro</h3>
+                </div>
+              </div>
+              <div class="chart donut-chart" id="category-chart"></div>
+            </article>
+
+            <article class="glass-card panel-card">
+              <div class="panel-head">
+                <div>
+                  <span class="mini-label">Planejamento</span>
+                  <h3>Resumo operacional</h3>
+                </div>
+              </div>
+              <div class="summary-list" id="home-summary-list"></div>
+            </article>
+
+            <article class="glass-card panel-card">
+              <div class="panel-head">
+                <div>
+                  <span class="mini-label">Alertas</span>
+                  <h3>Leituras rápidas</h3>
+                </div>
+              </div>
+              <div class="insight-list" id="home-alerts"></div>
+            </article>
+
+            <article class="glass-card panel-card wide">
+              <div class="panel-head">
+                <div>
+                  <span class="mini-label">Atividade recente</span>
+                  <h3>Últimos lançamentos</h3>
+                </div>
+              </div>
+              <div class="table-shell">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Tipo</th>
+                      <th>Nome</th>
+                      <th>Categoria</th>
+                      <th>Conta</th>
+                      <th>Valor</th>
+                    </tr>
+                  </thead>
+                  <tbody id="home-transactions"></tbody>
+                </table>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="screen" id="screen-accounts">
+          <div class="screen-layout">
+            <article class="glass-card panel-card">
+              <div class="panel-head">
+                <div>
+                  <span class="mini-label">Nova conta</span>
+                  <h3>Adicionar conta</h3>
+                </div>
+              </div>
+              <form class="stack-form" id="account-form">
+                <label>
+                  Nome da conta
+                  <input type="text" name="name" placeholder="Conta corrente" required>
+                </label>
+                <div class="grid-two">
+                  <label>
+                    Tipo
+                    <select name="type">
+                      <option value="Conta corrente">Conta corrente</option>
+                      <option value="Poupanca">Poupança</option>
+                      <option value="Carteira">Carteira</option>
+                      <option value="Investimento">Investimento</option>
+                    </select>
+                  </label>
+                  <label>
+                    Saldo inicial
+                    <input type="number" name="balance" min="0" step="0.01" placeholder="0.00" required>
+                  </label>
+                </div>
+                <button class="button button-primary" type="submit">Salvar conta</button>
+              </form>
+            </article>
+
+            <article class="glass-card panel-card wide">
+              <div class="panel-head">
+                <div>
+                  <span class="mini-label">Contas cadastradas</span>
+                  <h3>Gerencie seus saldos</h3>
+                </div>
+              </div>
+              <div class="cards-list" id="accounts-list"></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="screen" id="screen-income">
+          <div class="screen-layout">
+            <article class="glass-card panel-card">
+              <div class="panel-head">
+                <div>
+                  <span class="mini-label">Nova renda</span>
+                  <h3>Adicionar renda</h3>
+                </div>
+              </div>
+              <form class="stack-form" id="income-form">
+                <label>
+                  Nome da renda
+                  <input type="text" name="name" placeholder="Salário principal" required>
+                </label>
+                <div class="grid-two">
+                  <label>
+                    Tipo
+                    <select name="type">
+                      <option value="Fixa">Fixa</option>
+                      <option value="Variável">Variável</option>
+                    </select>
+                  </label>
+                  <label>
+                    Valor
+                    <input type="number" name="amount" min="0" step="0.01" placeholder="0.00" required>
+                  </label>
+                </div>
+                <div class="grid-two">
+                  <label>
+                    Categoria
+                    <input type="text" name="category" placeholder="Salário, Bônus, Freelance" required>
+                  </label>
+                  <label>
+                    Conta de destino
+                    <select name="accountId" id="income-account-select"></select>
+                  </label>
+                </div>
+                <label>
+                  Observacao
+                  <input type="text" name="note" placeholder="Descricao opcional">
+                </label>
+                <button class="button button-primary" type="submit">Salvar renda</button>
+              </form>
+            </article>
+
+            <article class="glass-card panel-card wide">
+              <div class="panel-head">
+                <div>
+                  <span class="mini-label">Rendas cadastradas</span>
+                  <h3>Fixas, variáveis e filtros editáveis</h3>
+                </div>
+              </div>
+              <div class="toolbar">
+                <select id="income-filter-type">
+                  <option value="Todas">Todas as rendas</option>
+                  <option value="Fixa">Somente fixas</option>
+                  <option value="Variável">Somente variáveis</option>
+                </select>
+              </div>
+              <div class="table-shell">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Nome</th>
+                      <th>Tipo</th>
+                      <th>Categoria</th>
+                      <th>Conta</th>
+                      <th>Valor</th>
+                      <th>Ações</th>
+                    </tr>
+                  </thead>
+                  <tbody id="income-table"></tbody>
+                </table>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="screen" id="screen-expenses">
+          <div class="screen-layout">
+            <article class="glass-card panel-card">
+              <div class="panel-head">
+                <div>
+                  <span class="mini-label">Novo gasto</span>
+                  <h3>Adicionar gasto</h3>
+                </div>
+              </div>
+              <form class="stack-form" id="expense-form">
+                <label>
+                  Nome do gasto
+                  <input type="text" name="name" placeholder="Mercado do mês" required>
+                </label>
+                <div class="grid-two">
+                  <label>
+                    Valor
+                    <input type="number" name="amount" min="0" step="0.01" placeholder="0.00" required>
+                  </label>
+                  <label>
+                    Conta
+                    <select name="accountId" id="expense-account-select"></select>
+                  </label>
+                </div>
+                <div class="grid-two">
+                  <label>
+                    Filtro/Categoria
+                    <input type="text" name="category" placeholder="Moradia, Lazer, Mercado" required>
+                  </label>
+                  <label>
+                    Frequência
+                    <select name="frequency">
+                      <option value="Unico">Único</option>
+                      <option value="Semanal">Semanal</option>
+                      <option value="Mensal">Mensal</option>
+                    </select>
+                  </label>
+                </div>
+                <label>
+                  Data
+                  <input type="date" name="date" required>
+                </label>
+                <button class="button button-primary" type="submit">Salvar gasto</button>
+              </form>
+            </article>
+
+            <article class="glass-card panel-card wide">
+              <div class="panel-head">
+                <div>
+                  <span class="mini-label">Filtro completo</span>
+                  <h3>Buscar e separar gastos</h3>
+                </div>
+              </div>
+              <div class="toolbar toolbar-filters">
+                <input type="search" id="expense-search" placeholder="Buscar por nome ou categoria">
+                <select id="expense-filter-category">
+                  <option value="Todas">Todas as categorias</option>
+                </select>
+                <select id="expense-filter-frequency">
+                  <option value="Todas">Todas as frequências</option>
+                  <option value="Unico">Único</option>
+                  <option value="Semanal">Semanal</option>
+                  <option value="Mensal">Mensal</option>
+                </select>
+              </div>
+              <div class="table-shell">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Nome</th>
+                      <th>Categoria</th>
+                      <th>Frequência</th>
+                      <th>Conta</th>
+                      <th>Data</th>
+                      <th>Valor</th>
+                      <th>Ações</th>
+                    </tr>
+                  </thead>
+                  <tbody id="expense-table"></tbody>
+                </table>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="screen" id="screen-reports">
+          <div class="dashboard-grid">
+            <article class="glass-card panel-card wide">
+              <div class="panel-head">
+                <div>
+                  <span class="mini-label">Relatório semanal</span>
+                  <h3>Gastos nos últimos 7 dias</h3>
+                </div>
+              </div>
+              <div class="chart weekly-chart" id="weekly-chart"></div>
+            </article>
+
+            <article class="glass-card panel-card wide">
+              <div class="panel-head">
+                <div>
+                  <span class="mini-label">Relatório mensal</span>
+                  <h3>Evolução de rendas e gastos</h3>
+                </div>
+              </div>
+              <div class="chart trend-chart" id="trend-chart"></div>
+            </article>
+
+            <article class="glass-card panel-card">
+              <div class="panel-head">
+                <div>
+                  <span class="mini-label">Resumo</span>
+                  <h3>Indicadores chave</h3>
+                </div>
+              </div>
+              <div class="stats-grid" id="report-stats"></div>
+            </article>
+
+            <article class="glass-card panel-card">
+              <div class="panel-head">
+                <div>
+                  <span class="mini-label">Leituras didáticas</span>
+                  <h3>Análise automática</h3>
+                </div>
+              </div>
+              <div class="insight-list" id="report-insights"></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="screen" id="screen-profile">
+          <div class="screen-layout profile-layout">
+            <article class="glass-card panel-card">
+              <div class="panel-head">
+                <div>
+                  <span class="mini-label">Seu perfil</span>
+                  <h3>Atualizar dados</h3>
+                </div>
+              </div>
+              <form class="stack-form" id="profile-form">
+                <label>
+                  Nome
+                  <input type="text" name="name" id="profile-name-input" required>
+                </label>
+                <div class="grid-two">
+                  <label>
+                    Renda principal
+                    <input type="number" name="income" id="profile-income-input" min="0" step="0.01" required>
+                  </label>
+                  <label>
+                    Telefone
+                    <input type="tel" name="phone" id="profile-phone-input" placeholder="(11) 99999-9999">
+                  </label>
+                </div>
+                <label>
+                  Link social
+                  <input type="url" name="socialLink" id="profile-social-input" placeholder="https://instagram.com/seuperfil">
+                </label>
+                <label>
+                  Nova foto
+                  <input type="file" name="avatar" id="profile-avatar-input" accept="image/*">
+                </label>
+
+
+                <button class="button button-primary" type="submit">Salvar perfil</button>
+                <p class="form-feedback" id="profile-feedback" aria-live="polite"></p>
+              </form>
+            </article>
+
+            <article class="glass-card panel-card wide profile-panel">
+              <div class="glass-tile profile-summary">
+                <img id="profile-avatar-preview" alt="Foto de perfil" src="">
+                <div>
+                  <span class="mini-label">Perfil ativo</span>
+                  <h3 id="profile-name">Usuário</h3>
+                  <p id="profile-income">Renda principal</p>
+                  <p id="profile-phone">Telefone</p>
+                  <a class="profile-link" id="profile-social-link" href="#" target="_blank" rel="noreferrer">Abrir perfil social</a>
+                </div>
+              </div>
+
+              <div class="cards-list">
+                <article class="inline-card">
+                  <strong id="profile-account-count">0</strong>
+                  <span>contas cadastradas</span>
+                </article>
+                <article class="inline-card">
+                  <strong id="profile-income-count">0</strong>
+                  <span>rendas ativas</span>
+                </article>
+                <article class="inline-card">
+                  <strong id="profile-expense-count">0</strong>
+                  <span>gastos registrados</span>
+                </article>
+              </div>
+
+              <div class="profile-actions">
+                <button class="button button-secondary" id="share-profile-button" type="button">Compartilhar perfil</button>
+                <p class="share-feedback" id="share-feedback" aria-live="polite"></p>
+              </div>
+            </article>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+
+
+
+
