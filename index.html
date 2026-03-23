@@ -147,12 +147,31 @@
         </div>
 
         <nav class="nav-stack">
-          <button class="nav-item is-active" data-screen="home" type="button">Home</button>
-          <button class="nav-item" data-screen="accounts" type="button">Contas</button>
-          <button class="nav-item" data-screen="income" type="button">Rendas</button>
-          <button class="nav-item" data-screen="expenses" type="button">Gastos</button>
-          <button class="nav-item" data-screen="reports" type="button">Relatórios</button>
-          <button class="nav-item" data-screen="profile" type="button">Perfil</button>
+          <button class="nav-item is-active" data-screen="home" type="button">
+            <span class="nav-icon" aria-hidden="true">⌂</span>
+            <span class="nav-label">Home</span>
+          </button>
+          <button class="nav-item nav-item-finance" data-screen="accounts" type="button">
+            <span class="nav-icon" aria-hidden="true">◫</span>
+            <span class="nav-label nav-label-desktop">Contas</span>
+            <span class="nav-label nav-label-mobile">Finanças</span>
+          </button>
+          <button class="nav-item nav-item-income" data-screen="income" type="button">
+            <span class="nav-icon" aria-hidden="true">↗</span>
+            <span class="nav-label">Rendas</span>
+          </button>
+          <button class="nav-item" data-screen="expenses" type="button">
+            <span class="nav-icon" aria-hidden="true">↘</span>
+            <span class="nav-label">Gastos</span>
+          </button>
+          <button class="nav-item" data-screen="reports" type="button">
+            <span class="nav-icon" aria-hidden="true">◔</span>
+            <span class="nav-label">Relatórios</span>
+          </button>
+          <button class="nav-item" data-screen="profile" type="button">
+            <span class="nav-icon" aria-hidden="true">◎</span>
+            <span class="nav-label">Perfil</span>
+          </button>
         </nav>
 
         <div class="glass-tile sidebar-card">
@@ -287,6 +306,10 @@
         </section>
 
         <section class="screen" id="screen-accounts">
+          <div class="mobile-finance-switch" aria-label="Alternar entre contas e rendas">
+            <button class="finance-switch-button is-active" data-finance-screen="accounts" type="button">Contas</button>
+            <button class="finance-switch-button" data-finance-screen="income" type="button">Rendas</button>
+          </div>
           <div class="screen-layout">
             <article class="glass-card panel-card">
               <div class="panel-head">
@@ -332,6 +355,10 @@
         </section>
 
         <section class="screen" id="screen-income">
+          <div class="mobile-finance-switch" aria-label="Alternar entre contas e rendas">
+            <button class="finance-switch-button" data-finance-screen="accounts" type="button">Contas</button>
+            <button class="finance-switch-button is-active" data-finance-screen="income" type="button">Rendas</button>
+          </div>
           <div class="screen-layout">
             <article class="glass-card panel-card">
               <div class="panel-head">

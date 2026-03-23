@@ -107,6 +107,7 @@ const ui = {
   profileExpenseCount: document.querySelector("#profile-expense-count"),
   shareProfileButton: document.querySelector("#share-profile-button"),
   shareFeedback: document.querySelector("#share-feedback"),
+  financeSwitchButtons: document.querySelectorAll("[data-finance-screen]"),
   homeBalance: document.querySelector("#home-balance"),
   homeBalanceNote: document.querySelector("#home-balance-note"),
   homeIncomeTotal: document.querySelector("#home-income-total"),
@@ -276,7 +277,14 @@ function setAuthView(view) {
 
 function setActiveScreen(screen) {
   activeScreen = screen;
-  ui.navItems.forEach((item) => item.classList.toggle("is-active", item.dataset.screen === screen));
+  const isMobile = window.matchMedia("(max-width: 720px)").matches;
+  ui.navItems.forEach((item) => {
+    const isFinanceProxy = isMobile && (screen === "accounts" || screen === "income") && item.dataset.screen === "accounts";
+    item.classList.toggle("is-active", item.dataset.screen === screen || isFinanceProxy);
+  });
+  ui.financeSwitchButtons.forEach((button) => {
+    button.classList.toggle("is-active", button.dataset.financeScreen === screen);
+  });
   ui.screens.forEach((node) => {
     const isTarget = node.id === `screen-${screen}`;
     node.classList.toggle("is-active", isTarget);
@@ -287,6 +295,7 @@ function setActiveScreen(screen) {
     }
   });
   ui.screenTitle.textContent = { home: "Home", accounts: "Contas", income: "Rendas", expenses: "Gastos", reports: "Relatórios", profile: "Perfil" }[screen];
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 function applyTheme(theme) {
@@ -1011,6 +1020,7 @@ ui.registerForm.addEventListener("submit", async (event) => {
   await register(new FormData(ui.registerForm));
 });
 ui.navItems.forEach((item) => item.addEventListener("click", () => setActiveScreen(item.dataset.screen)));
+ui.financeSwitchButtons.forEach((button) => button.addEventListener("click", () => setActiveScreen(button.dataset.financeScreen)));
 ui.logoutButton.addEventListener("click", () => updateState((draft) => { draft.currentUserId = null; }));
 
 ui.accountForm.addEventListener("submit", (event) => {
