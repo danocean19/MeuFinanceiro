@@ -77,6 +77,7 @@ const ui = {
   topbarIncome: document.querySelector("#topbar-income"),
   topbarAvatar: document.querySelector("#topbar-avatar"),
   themeToggle: document.querySelector("#theme-toggle"),
+  themeChoices: document.querySelectorAll("[data-theme-choice]"),
   logoutButton: document.querySelector("#logout-button"),
   accountForm: document.querySelector("#account-form"),
   accountsList: document.querySelector("#accounts-list"),
@@ -295,16 +296,15 @@ function setActiveScreen(screen) {
     }
   });
   ui.screenTitle.textContent = { home: "Home", accounts: "Contas", income: "Rendas", expenses: "Gastos", reports: "Relatórios", profile: "Perfil" }[screen];
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  ui.themeToggle?.classList.toggle("is-hidden", !(screen === "home" || screen === "profile"));
+  window.scrollTo({ top: 0, behavior: isMobile ? "auto" : "smooth" });
 }
 
 function applyTheme(theme) {
   currentTheme = theme;
   document.body.dataset.theme = theme === "dark" ? "dark" : "light";
   localStorage.setItem(THEME_KEY, currentTheme);
-  if (ui.themeToggle) {
-    ui.themeToggle.textContent = currentTheme === "dark" ? "Modo claro" : "Modo noturno";
-  }
+  ui.themeChoices.forEach((button) => button.classList.toggle("is-active", button.dataset.themeChoice === currentTheme));
 }
 
 function readFileAsDataURL(file) {
@@ -1007,9 +1007,9 @@ function drawTipImage(tip) {
 }
 
 ui.authTabs.forEach((tab) => tab.addEventListener("click", () => setAuthView(tab.dataset.authView)));
-ui.themeToggle?.addEventListener("click", () => {
-  applyTheme(currentTheme === "dark" ? "light" : "dark");
-});
+ui.themeChoices.forEach((button) => button.addEventListener("click", () => {
+  applyTheme(button.dataset.themeChoice);
+}));
 ui.loginForm.addEventListener("submit", (event) => {
   event.preventDefault();
   const data = new FormData(ui.loginForm);

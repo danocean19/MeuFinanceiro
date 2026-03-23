@@ -191,7 +191,10 @@
           </div>
 
           <div class="topbar-profile">
-            <button class="button button-secondary compact theme-toggle" id="theme-toggle" type="button">Modo noturno</button>
+            <div class="theme-toggle" id="theme-toggle" aria-label="Alternar tema">
+              <button class="theme-option" id="theme-light" data-theme-choice="light" type="button" aria-label="Modo claro">☼</button>
+              <button class="theme-option" id="theme-dark" data-theme-choice="dark" type="button" aria-label="Modo escuro">◐</button>
+            </div>
             <div class="topbar-copy">
               <strong id="topbar-name">Usuário</strong>
               <span id="topbar-income">Renda base</span>

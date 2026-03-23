@@ -394,7 +394,32 @@ body[data-theme="dark"] .switch-tab.is-active {
   box-shadow: var(--edge-shadow), var(--shadow);
 }
 .topbar-profile, .profile-summary { display: flex; align-items: center; gap: 1rem; }
-.theme-toggle { white-space: nowrap; }
+.theme-toggle {
+  display: inline-grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.3rem;
+  padding: 0.28rem;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.24), rgba(255,255,255,0.08));
+  border: 1px solid rgba(255,255,255,0.3);
+}
+.theme-option {
+  border: 0;
+  width: 2.35rem;
+  height: 2.35rem;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 1rem;
+  display: grid;
+  place-items: center;
+  padding: 0;
+}
+.theme-option.is-active {
+  color: var(--text);
+  background: linear-gradient(180deg, rgba(255,255,255,0.78), rgba(255,255,255,0.26));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 8px 18px rgba(16, 39, 77, 0.08);
+}
 .topbar-profile img, .profile-summary img {
   width: 68px;
   height: 68px;
@@ -553,7 +578,7 @@ th { font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.12em; colo
     display: block;
   }
   .main-panel {
-    padding-bottom: 0;
+    padding-bottom: 6.4rem;
   }
   .sidebar {
     position: fixed;
@@ -625,8 +650,13 @@ th { font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.12em; colo
     gap: 0.65rem;
   }
   .theme-toggle {
-    padding: 0.58rem 0.8rem;
-    font-size: 0.78rem;
+    padding: 0.22rem;
+    gap: 0.22rem;
+  }
+  .theme-option {
+    width: 2rem;
+    height: 2rem;
+    font-size: 0.92rem;
   }
   .topbar-profile img {
     width: 48px;
